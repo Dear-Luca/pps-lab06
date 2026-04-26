@@ -1,5 +1,6 @@
 package it.unibo.pps.ex1
 
+
 // List as a pure interface
 enum List[A]:
   case ::(h: A, t: List[A])
@@ -52,7 +53,9 @@ enum List[A]:
 
   def length(): Int = foldLeft(0)((l, _) => l + 1)
 
-  def indices(): List[Int] = ???
+  def indices(): List[Int] = foldLeft((0, Nil(): List[Int])){
+    case ((index, acc), _) => (index + 1, acc.append(index :: Nil()))
+  }._2
 
   def zipWithIndex: List[(A, Int)] = ???
   def partition(predicate: A => Boolean): (List[A], List[A]) = ???
