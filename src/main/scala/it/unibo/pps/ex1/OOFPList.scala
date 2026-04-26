@@ -46,9 +46,14 @@ enum List[A]:
     case h :: t => t.foldLeft(h)(op)
   
   // Exercise: implement the following methods
-  def zipWithValue[B](value: B): List[(A, B)] = ???
-  def length(): Int = ???
+  def zipWithValue[B](value: B): List[(A, B)] = this match
+    case h :: t => (h, value) :: t.zipWithValue(value)
+    case _ => Nil()
+
+  def length(): Int = foldLeft(0)((l, _) => l + 1)
+
   def indices(): List[Int] = ???
+
   def zipWithIndex: List[(A, Int)] = ???
   def partition(predicate: A => Boolean): (List[A], List[A]) = ???
   def span(predicate: A => Boolean): (List[A], List[A]) = ???
